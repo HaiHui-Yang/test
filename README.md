@@ -1,3 +1,3 @@
-# Codex Cloud 测试仓库
+# Codex Cloud 示例项目
 
-用来测试 ChatGPT Codex Cloud 的空仓库初始化。
+这是一个用于测试 Codex Cloud 的最小 Python 项目示例。
