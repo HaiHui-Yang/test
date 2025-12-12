@@ -78,7 +78,7 @@ def _generate_star(num_rays: int = 80) -> ParticleCloud:
 
     base_color = np.array([1.0, 0.9, 0.35, 1.0])
     flicker = np.random.uniform(0.85, 1.05, (num_rays, 1))
-    colors = base_color * flicker
+    colors = np.clip(base_color * flicker, 0.0, 1.0)
 
     sizes = np.random.uniform(35, 60, num_rays)
     positions = np.stack([x, y, z], axis=1)

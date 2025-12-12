@@ -1,15 +1,12 @@
-# Codex Cloud 示例项目
+# 粒子圣诞树示例
 
-这是一个用于测试 Codex Cloud 的最小 Python 项目示例。
+这是一个仅包含 3D 粒子圣诞树动画的最小示例项目，可直接运行查看效果或在无界面环境下导出 GIF。
 
-## 3D 粒子圣诞树演示
+## 运行
 - 安装依赖：`pip install -r requirements.txt`
 - 运行动画窗口：`python src/particle_tree.py`
-- 无界面环境下保存 GIF：`MPLBACKEND=Agg python -c "from src.particle_tree import animate_tree; animate_tree(frame_count=180, interval_ms=40, save_path='tree.gif', show=False)"`
-- 动画效果：3D 粒子树随时间轻微摇曳并缓慢旋转，顶部星星闪烁。
+- 无界面环境保存 GIF：`MPLBACKEND=Agg python -c "from src.particle_tree import animate_tree; animate_tree(save_path='tree.gif', frame_count=180, interval_ms=40, show=False)"`
 
-## 在 PyCharm 中运行小提示
-- **创建解释器**：在 PyCharm 右下角选择「Python Interpreter」→「Add Interpreter」→ 选择现有虚拟环境或新建，指向本项目（推荐 `.venv`）。
-- **安装依赖**：在终端（或 PyCharm 的 Terminal）执行 `pip install -r requirements.txt`。
-- **运行动画**：右键 `src/particle_tree.py` 选择「Run 'particle_tree'」，如需无界面导出 GIF 可在「Run/Debug Configurations」里设置环境变量 `MPLBACKEND=Agg`，并在 Parameters 里添加 `--` 后附加自定义参数（例如通过 `save_path` 指定输出）。
-- **运行测试**：右键 `tests` 目录选择「Run 'pytest in tests'」，或在 Terminal 运行 `pytest`。
+## 说明
+- 仅保留了动画所需的代码与依赖，其余示例与测试文件已移除。
+- 依赖项：matplotlib、numpy、pillow（用于可选 GIF 导出）。
