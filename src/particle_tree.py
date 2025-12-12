@@ -120,11 +120,32 @@ def animate_tree(
     """
 
     plt.style.use("dark_background")
+    plt.rcParams["figure.facecolor"] = "#000000"
+    plt.rcParams["axes.facecolor"] = "#020312"
 
     body = _generate_tree_body()
     trunk = _generate_trunk()
     star = _generate_star()
-    cloud = _compose_clouds(body, trunk, star)
+    # 在树身上加一些彩灯，让黑色背景下更容易看清
+    ornaments_count = 120
+    ornament_positions_idx = np.random.choice(len(body.positions), ornaments_count, replace=False)
+    ornament_positions = body.positions[ornament_positions_idx]
+    ornament_colors = np.array(
+        [
+            [1.0, 0.75, 0.4, 1.0],
+            [0.3, 0.7, 1.0, 1.0],
+            [1.0, 0.3, 0.5, 1.0],
+            [0.7, 1.0, 0.4, 1.0],
+        ]
+    )
+    ornament_colors = ornament_colors[np.random.randint(0, len(ornament_colors), ornaments_count)]
+    ornaments = ParticleCloud(
+        positions=ornament_positions,
+        colors=ornament_colors,
+        sizes=np.random.uniform(30, 45, ornaments_count),
+    )
+
+    cloud = _compose_clouds(body, trunk, star, ornaments)
 
     fig = plt.figure(figsize=(7, 8))
     ax = fig.add_subplot(111, projection="3d")
@@ -158,7 +179,8 @@ def animate_tree(
         ax.view_init(elev=15 + 3 * math.sin(frame / 40), azim=angle * 180 / math.pi)
         return scat,
 
-    anim = FuncAnimation(fig, _update, frames=frame_count, interval=interval_ms, blit=True)
+    # 注意：3D Axes 在部分环境下不支持 blit，否则可能出现空白画面，这里关闭 blit 以保证显示。
+    anim = FuncAnimation(fig, _update, frames=frame_count, interval=interval_ms, blit=False)
     plt.tight_layout()
 
     if save_path:
